@@ -24,9 +24,14 @@ $(DOCKERIMAGENAME): Dockerfile
 	mkdir -p $(@D)
 	touch $@
 
-distclean:
-	rm -fr $(DOCKERIMAGENAME)
-	docker rmi $(DOCKERIMAGENAME)
+download:
+	docker pull $(DOCKERIMAGENAME)
 
-install: all
+clean:
+	rm -fr $(DOCKERIMAGENAME)
+distclean: clean
+	docker rmi $(DOCKERIMAGENAME)
+maintainer-clean: distclean
+
+install:
 	cp latexmk /usr/local/bin/
